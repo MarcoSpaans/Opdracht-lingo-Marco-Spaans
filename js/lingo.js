@@ -483,9 +483,11 @@ var words = [
 
   var wordlength = words[Math.floor(Math.random() * words.length)];
 
-  var s;
   var count = 0;
   var answer = [];
+
+	console.log(wordlength);
+
 
   function startup() {
 
@@ -510,20 +512,19 @@ var words = [
 			var div_container = document.createElement("DIV");
 			div_container.id = "answerslot" + b;
 			div_container.style.marginLeft = "20px";
+			div_container.style.height = "auto";
 			document.body.appendChild(div_container);
 			for (var d = 0; d < wordlength.length; d++) {
 				var letterslot = document.createElement("DIV");
-				letterslot.style.backgroundColor = "white";
-				letterslot.style.padding = "20px 20px";
-				letterslot.style.border = "solid 2px black";
-				letterslot.style.borderRadius = "50px";
-				letterslot.style.width = "50px";
-				letterslot.style.height = "50px";
-				letterslot.style.display = "inline-block";
-				letterslot.style.textAlign = "center";
 				letterslot.id = "slot_" + b + "_" + d;
+				letterslot.setAttribute("class", "letterslot")
 				document.getElementById('answerslot' + b).appendChild(letterslot);
 			}
+			for (var f = 0; f < wordlength.length; f++) {
+		      var slot = document.createElement("P");
+					slot.id = "letter_" + b + "_" + f;
+					document.getElementById('slot_' + b + '_' + f).appendChild(slot);
+		  }
 		}
 		var p_count = document.createElement("P");
 		var p_stat = document.createElement("P");
@@ -539,21 +540,28 @@ function letter() {
 
 	count++
   var letter = document.getElementById('letter').value;
+	var post = [];
+
+	//kopieer willekeurig woord
+for (a = 0; a < wordlength.length; a++) {
+	 answer[a] = wordlength[a];
+ }
+ console.log(answer);
 
 if (letter.length > 4) {
   for (var i = 0; i < wordlength.length; i++) {
-      var slot = document.createElement("P");
-			slot.innerHTML = letter[i];
-			document.getElementById('slot_' + count + '_' + i).appendChild(slot);
+			document.getElementById('letter_' + count + '_' + i).innerHTML = letter[i];
+			post[i] = letter[i];
   }
 }
-
+console.log(post);
   document.getElementById('counter').innerHTML = "pogingen: " + (5 - count);
 
 	//controleren elk letter
 	for (var c = 0; c < wordlength.length; ++c) {
 		if (letter[c] == wordlength[c]) {
 			document.getElementById('slot_' + count + '_' + c).style.backgroundColor = "red";
+			answer[c] = 0
 		}
 	}
 
@@ -561,7 +569,7 @@ if (letter.length > 4) {
 		for (var o = 0; o < wordlength.length; o++) {
 			if (document.getElementById('slot_' + count + '_' + p).style.backgroundColor == "red") {
 
-			} else if (letter[p] == wordlength[o]) {
+			} else if (post[p] == answer[o]) {
 			document.getElementById('slot_' + count + '_' + p).style.backgroundColor = "yellow";
 				}
 			}
@@ -573,14 +581,11 @@ if (letter.length > 4) {
 		var delbutton = document.getElementById('check');
 		document.getElementById('lingo').removeChild(delbutton);
 		document.getElementById('stat').innerHTML = "we hebben een winnaar!";
+	} else if (count > 4) {
+		document.getElementById('stat').innerHTML = "sorry, je hebt geen pogingen meer. het antwoord was '" + wordlength + "'. probeer het opnieuw!";
+		var delbutton = document.getElementById('check');
+		document.getElementById('lingo').removeChild(delbutton);
 	}
 
-
-//als geen pogingen meer over zijn!!!
-if (count > 4) {
-  document.getElementById('stat').innerHTML = "sorry, je hebt geen pogingen meer. het antwoord was '" + wordlength + "'. probeer het opnieuw!";
-	var delbutton = document.getElementById('check');
-	document.getElementById('lingo').removeChild(delbutton);
-}
-
+console.log(answer);
 }
