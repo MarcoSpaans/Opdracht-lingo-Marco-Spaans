@@ -526,11 +526,14 @@ var words = [
 					document.getElementById('slot_' + b + '_' + f).appendChild(slot);
 		  }
 		}
+		document.getElementById('letter_1_0').innerHTML = wordlength[0];
 		var p_count = document.createElement("P");
+		var breakline = document.createElement("BR");
 		var p_stat = document.createElement("P");
 		p_count.id = "counter";
 		p_stat.id = "stat";
 		document.getElementById("lingo").appendChild(p_count);
+		document.getElementById("lingo").appendChild(breakline);
 		document.getElementById("lingo").appendChild(p_stat);
 
 
@@ -581,8 +584,10 @@ console.log(post);
 		var delbutton = document.getElementById('check');
 		document.getElementById('lingo').removeChild(delbutton);
 		document.getElementById('stat').innerHTML = "we hebben een winnaar!";
+		document.getElementById('stat').style.color = "lightgreen";
 	} else if (count > 4) {
 		document.getElementById('stat').innerHTML = "sorry, je hebt geen pogingen meer. het antwoord was '" + wordlength + "'. probeer het opnieuw!";
+		document.getElementById('stat').style.color = "red";
 		var delbutton = document.getElementById('check');
 		document.getElementById('lingo').removeChild(delbutton);
 	}
