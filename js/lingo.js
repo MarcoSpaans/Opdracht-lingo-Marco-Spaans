@@ -541,7 +541,6 @@ var words = [
 
 function letter() {
 
-	count++
   var letter = document.getElementById('letter').value;
 	var post = [];
 
@@ -551,12 +550,14 @@ for (a = 0; a < wordlength.length; a++) {
  }
  console.log(answer);
 
-if (letter.length > 4) {
+if (letter.length > 4 && letter.length < 6) {
+
+count++
+
   for (var i = 0; i < wordlength.length; i++) {
 			document.getElementById('letter_' + count + '_' + i).innerHTML = letter[i];
 			post[i] = letter[i];
   }
-}
 console.log(post);
   document.getElementById('counter').innerHTML = "pogingen: " + (5 - count);
 
@@ -592,5 +593,6 @@ console.log(post);
 		document.getElementById('lingo').removeChild(delbutton);
 	}
 
+}
 console.log(answer);
 }
